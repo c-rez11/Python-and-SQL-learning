@@ -1,5 +1,5 @@
 
-
+-- seems to be working
 -- test this edit
 --show how to use not null, unique, etc
 
