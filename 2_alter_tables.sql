@@ -1,11 +1,11 @@
 
 -- seems to be working
 -- test this edit
---show how to use not null, unique, etc
+-- show how to use not null, unique, etc
 
-use test1_db;
+use test_db;
 
-drop table persons;
+-- drop table persons;
 create table persons (
 			ID int not null default 100, -- having a default prevents an error here
             first_name varchar(8) not null,
@@ -34,7 +34,7 @@ select * from customers;
 -- alter existing table (adding a constraint)
 
 alter table persons
-add primary key (ID)
+add primary key (ID);
 
 
 create table passengers(
@@ -44,13 +44,13 @@ create table passengers(
             ticket_number varchar(5)
             );
             
-select * from passengers
+select * from passengers;
 
 alter table passengers
-add constraint UC_passengers unique(mobile, ticket_number);
+add constraint UC_passengers unique(mobile, ticket_number); 
 
 alter table passengers
-drop index UC_passengers
+drop index UC_passengers;
 
 -- foreign key
 

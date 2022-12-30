@@ -1,11 +1,11 @@
 -- create database test1_db
 -- creating tables
 
-use test1_db;
-create table students (roll_no int, name varchar(10), age int, phone int)
+use test_db;
+create table students (roll_no int, name varchar(10), age int, phone int);
 
 select *
-from students
+from students;
 
 insert into students 
 values
