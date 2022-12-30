@@ -1,3 +1,5 @@
+
+-- now from my desktop
 -- create database test1_db
 -- creating tables
 
