@@ -60,5 +60,76 @@ print(df['sqft_basement'].value_counts()) # similar to year_renovated, zero sq f
     # because bigger basement = higher value, we'll also keep as continuous variable
 
 
+# Step 3: train/test split
+
+# Separate features from label
+X = df.drop('price',axis=1).values # this is done because tensorflow doesn't like pandas dataframes
+y = df['price'].values
+
+from sklearn.model_selection import train_test_split
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=101)
+
+# scaling the data
+from sklearn.preprocessing import MinMaxScaler
+scaler = MinMaxScaler()
+X_train = scaler.fit_transform(X_train)
+X_test = scaler.transform(X_test) # we don't scale our test data because we wouldn't know this 
+    # in a real-world application
+
+# Step 4: Create the model
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import Dense
+
+print(X_train.shape) # we have 19 different features, so we should probably have 19 neurons in our layer
+
+model = Sequential()
+# adding the layers
+model.add(Dense(19,activation='relu'))
+model.add(Dense(19,activation='relu'))
+model.add(Dense(19,activation='relu'))
+model.add(Dense(19,activation='relu'))
+model.add(Dense(1)) # final layer for our output
+
+model.compile(optimizer='adam',loss='mse')
+
+model.fit(x=X_train, y=y_train, validation_data=(X_test,y_test), 
+          batch_size=128,epochs=400)
+# note on validation: it checks how well the model is performing at each epoch
+#   WITHOUT affecting the actual weights of the model
+# note on batch_size: the smaller the batch size, longer training will take
+
+losses = pd.DataFrame(model.history.history)
+losses.plot() # as we can see in the graph, the loss matches validation loss, meaning we're not overfitting
+#   if the validation loss increased as time went on, we know we'd have an overfitting problem
+
+from sklearn.metrics import mean_squared_error,mean_absolute_error,explained_variance_score
+predictions = model.predict(X_test)
+np.sqrt(mean_squared_error(y_test,predictions)) # root mean squared error
+mean_absolute_error(y_test,predictions) # mean absolute error
+# definition of both: avg magnitude of errors in a set of predictions WITHOUT considering direction
+# RMSE is better if you care about your model's performance against outliers,
+    # as RMSE more heavily weights the error of outliers
+
+
+df['price'].describe() # with an average price of ~$500k, our avg error is $100k
+
+explained_variance_score(y_test, predictions) # how much of the data is explained by our model
+
+plt.scatter(y_test, predictions) # it looks like our model's accuracy is affected by outliers.
+    # Because of this, maybe we should consider removing the outliers (very expensive homes),
+    # although we'd be sacrificing our model's ability to predict those high-priced homes
+    # which we're probably okay with
+plt.plot(y_test,y_test,'r') # gets a fit line of our predictions
+
+# let's say we have our model and a new house comes on the market. How would we do?
+single_house = df.drop('price',axis=1).iloc[0]
+single_house = scaler.transform(single_house.values.reshape(-1,19)) # reshape adds double-brackets which are needed to further progress
+    # scale the data the way we did when we initially created the model
+model.predict(single_house) 
+print(df.head(1)) # model predicts $288k, but actually $221k
+# for further accuracy, consider dropping the outliers
+
+
+
 
 #plt.show()
