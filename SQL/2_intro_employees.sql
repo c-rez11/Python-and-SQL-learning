@@ -1,5 +1,5 @@
--- using the "employees" database
-use employees;
+-- using the "employees_mod" database
+use employees_mod;
 select first_name, last_name from employees;
 select dept_no from departments;
 
@@ -17,7 +17,7 @@ select * from employees where first_name = 'Denis' and gender = 'M' or gender = 
 select * from employees where first_name = 'Denis' and (gender = 'M' or gender = 'F'); -- handle operator precedence by adding parenthesis
 
 -- exercise: retrieve a list with all female employees whose first name is either Kelllie or Aruna
-select * from employees where gender = 'F' and (first_name = 'Kellie' or first_name = 'Aruna')
+select * from employees where gender = 'F' and (first_name = 'Kellie' or first_name = 'Aruna');
 
 -- in, not in: avoids using lots of 'and'/'or' statements
 select * from employees where first_name in ('Cathie','Mark','Nathan'); -- this is also a much quicker retrieve for the CPU
@@ -74,7 +74,7 @@ select first_name, count(first_name) from employees group by first_name;
 -- alias
 -- names like count(first_name) are ugly and unprofessional. Use alias to change that
 select first_name, count(first_name) as names_count from employees
-group by first_name order by first_name
+group by first_name order by first_name;
 -- exercise 112: Write query with 2 columns. First column: salaries higher than 100k. Second column: # of employees at each of those salaries. Sort by first column.
 select salary, count(emp_no) as emps_with_same_salary from salaries where salary >= 100000 group by salary order by salary;
 
@@ -83,7 +83,6 @@ select salary, count(emp_no) as emps_with_same_salary from salaries where salary
 select first_name, count(first_name) as names_count from employees group by first_name having count(first_name)>250 order by first_name;
 
 -- exercise: find all employees whose average salary is higher than 120k annually
-select *, avg(salary) as average_salary from salaries where avg(salary) > 120000 group by emp_no order by emp_no;
 select emp_no, avg(salary) as average_salary from salaries group by emp_no having avg(salary)>120000 order by emp_no; -- can't use * as all-encompassing because emp_no needs to be specifically mentioned because of group by function
 -- having and where can be used together, but don't use having with both aggregated and non-aggregated data
 -- exercise 119: select employee numbers who have signed more than 1 contract after 1/1/2000.

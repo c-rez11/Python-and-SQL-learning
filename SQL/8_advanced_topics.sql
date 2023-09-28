@@ -1,3 +1,4 @@
+use employees_mod;
 /* Types of MySQL Variables
 local variable: variable that rests between BEGIN and END. SQL doesn't recognize it outside of the function or stored procedure
 session variables: variable that exists only for the session in which you're operating
@@ -19,6 +20,7 @@ examples: .max_connections() --max concurrent connections that can be establishe
  -- triggers: see other file for in-depth walk-through
  -- exercise: create trigger that checks if hire date is in the future. If so, set as today's date
  delimiter $$
+ drop trigger if exists trig_check_date;
  create trigger trig_check_date
  before insert on employees
  for each row
@@ -31,7 +33,8 @@ end$$
 delimiter ;
 
 commit;
-insert employees values ('999904','1970-01-31','John','Johnson','M','2025-01-01');
+-- after the below code has been run once, it doesn't need to be run again
+-- insert employees values ('999904','1970-01-31','John','Johnson','M','2025-01-01');
 select * from employees
 order by emp_no desc limit 10;
 rollback;
@@ -41,6 +44,8 @@ rollback;
 select * from employees 
 where hire_date > '2000-01-01'; -- took my computer 0.141 seconds
 -- index time
+alter table employees
+drop index i_hire_date;
 create index i_hire_date on employees(hire_date);
 select * from employees 
 where hire_date > '2000-01-01'; -- took my computer 0.000 seconds.. crazy
@@ -49,11 +54,13 @@ where hire_date > '2000-01-01'; -- took my computer 0.000 seconds.. crazy
 -- second, based on that output, it will search by the second column
 select * from employees
 where first_name = 'Georgi' and last_name = 'Facello'; -- took 0.125 sec
+alter table employees
+drop index i_composite;
 create index i_composite on employees(first_name, last_name);
 select * from employees
 where first_name = 'Georgi' and last_name = 'Facello'; -- took 0.000 sec
 
-show index from employees from employees;
+show index from employees from employees_mod;
 -- problem of index: it takes up storage space. Try to balance speed with storage!!
 alter table employees
 drop index i_hire_date;

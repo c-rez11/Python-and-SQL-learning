@@ -5,7 +5,7 @@
 # Perfect! Let’s execute some code.  
 
 # First, in case you are just starting Workbench, select “Employees” as your default database.
-USE employees;
+USE employees_mod;
 
 # Then, execute a COMMIT statement, because the triggers we are about to create will make some changes to 
 # the state of the data in our database. At the end of the exercise, we will ROLLBACK up to the moment of this COMMIT.  
@@ -14,8 +14,8 @@ COMMIT;
 # We said triggers are a type of stored program. Well, one could say the syntax resembles that of stored procedures, couldn’t they?
 
 # BEFORE INSERT
+drop trigger if exists before_salaries_insert;
 DELIMITER $$
-
 CREATE TRIGGER before_salaries_insert
 BEFORE INSERT ON salaries
 FOR EACH ROW
@@ -62,19 +62,6 @@ DELIMITER ;
 # certain variable. Here, the variable is the newly inserted salary, and the value to be assigned is 0. 
 
 # All right! Let’s execute this query. 
-# BEFORE INSERT
-DELIMITER $$
-
-CREATE TRIGGER before_salaries_insert
-BEFORE INSERT ON salaries
-FOR EACH ROW
-BEGIN 
-	IF NEW.salary < 0 THEN 
-		SET NEW.salary = 0; 
-	END IF; 
-END $$
-
-DELIMITER ;
 
 # Let’s check the values of the “Salaries” table for employee 10001.
 SELECT 
@@ -103,8 +90,8 @@ WHERE
 # Now, let’s look at a BEFORE UPDATE trigger. The code is similar to the one of the trigger we created above, with two 
 # substantial differences.
 # BEFORE UPDATE
+drop trigger if exists trig_upd_salary;
 DELIMITER $$
-
 CREATE TRIGGER trig_upd_salary
 BEFORE UPDATE ON salaries
 FOR EACH ROW
@@ -197,8 +184,8 @@ SELECT DATE_FORMAT(SYSDATE(), '%y-%m-%d') as today;
 # As an exercise, try to understand the following query. Technically, it regards the creation of a more complex trigger. 
 #It is of the size that professionals often have to deal with.
 
+drop trigger if exists trig_ins_dept_mng;
 DELIMITER $$
-
 CREATE TRIGGER trig_ins_dept_mng
 AFTER INSERT ON dept_manager
 FOR EACH ROW

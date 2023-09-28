@@ -1,3 +1,4 @@
+use employees_mod;
 select * from employees limit 10;
 
 insert into employees
@@ -17,7 +18,7 @@ values
     'Peress',
     'M',
     '2021-10-01'
-    )
+    );
 
 select * from employees order by emp_no desc limit 10;
 

@@ -4,7 +4,7 @@ exist within the execution of a given query.
 -- example: how many salary contracts signed by female employees have been valued above..
 -- the all-time avg contract salary value of the company?
 -- two result sets needed
-use employees;
+use employees_mod;
 
 select avg(salary) as avg_salary
 from salaries; -- first result set needed. Now put it in one query
@@ -56,8 +56,6 @@ select *
 from f_highest_salaries
 where emp_no <= '10010';
 
-drop temporary table if exists f_highest_salaries;
-
 /*Note: temporary tables are locked for use, meaning they can't be used in joins or unions.
 There is a workaround though: creating a CTE. */
 
@@ -68,17 +66,15 @@ join employees e on e.emp_no = s.emp_no and e.gender = 'F'
 group by s.emp_no limit 10)
 select * from f_highest_salaries f1 join cte c;
 
+drop temporary table if exists f_highest_salaries;
+
 -- but CTEs aren't perfect. Here's an example:
+drop temporary table if exists dates;
 create temporary table dates
 select 
 	now() as current_date_and_time,
     date_sub(now(), interval 1 month) as a_month_earlier,
     date_sub(now(), interval -1 month) as a_year_later;
-
-select *
-from dates d1
-union select *
-from dates d2; -- error: can't reopen table 'd1'
 
 with cte as (select 
 	now() as current_date_and_time,
@@ -88,7 +84,4 @@ select * from dates d1 join cte c; -- now it works
 
 drop table if exists f_highest_salaries;
 drop temporary table if exists dates;
-
-
-
 

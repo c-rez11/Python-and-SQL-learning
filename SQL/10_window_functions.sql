@@ -2,7 +2,7 @@
 using other records ("window") associated with the specified one from the table
 window = the window over which the given function evaluation will be performed. Acts as set of rows on which the given function will be applied.
 aggregate vs non-aggregate window functions (non-aggregate: ranking vs value) */
-use employees;
+use employees_mod;
 
 select 
 	emp_no,

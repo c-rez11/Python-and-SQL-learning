@@ -1,14 +1,14 @@
-use employees;
+use employees_mod;
 -- JOINS
 
 -- prep for joins by altering a few tables
-alter table departments_duplicate
-drop column dept_manager;
-select * from departments_duplicate;
-alter table departments_duplicate
-change column dept_no dept_no char(4) NULL;
-alter table departments_duplicate
-change column dept_name dept_name varchar(40) NULL;
+-- alter table departments_duplicate
+-- drop column dept_manager;
+-- select * from departments_duplicate;
+-- alter table departments_duplicate
+-- change column dept_no dept_no char(4) NULL;
+-- alter table departments_duplicate
+-- change column dept_name dept_name varchar(40) NULL;
 
 
 -- create dept_manager_dup table
@@ -96,7 +96,7 @@ select m.emp_no, m.dept_no, d.dept_name
 from dept_manager_dup m -- using aliases "m" and "d" for manager and departments tables respectively
 inner join
 departments_duplicate d on m.dept_no = d.dept_no
-group by m.emp_no
+group by m.emp_no, m.dept_no, d.dept_name
 order by m.dept_no; -- not working for some reason
 -- remove duplicates
 delete from dept_manager_dup
@@ -151,12 +151,13 @@ order by m.dept_no;
 set @@global.sql_mode := replace(@@global.sql_mode, 'only_full_group_by','');
 
 -- exercise: select first/last name, hire date, and job title of all employees named Margareta Markovitch
-select e.first_name, e.last_name, t.from_date, t.title
-from employees e
-join
-titles t on e.emp_no = t.emp_no
-where e.first_name = 'Margareta' and e.last_name = 'Markovitch'
-order by e.emp_no desc;
+-- not sure where job title comes from, so commenting out
+-- select e.first_name, e.last_name, t.from_date, t.title
+-- from employees e
+-- join
+-- titles t on e.emp_no = t.emp_no
+-- where e.first_name = 'Margareta' and e.last_name = 'Markovitch'
+-- order by e.emp_no desc;
 
 -- cross join: connects ALL values, not just those that match. Think a completely filled-in venn diagram
 select dm.*, d.*
@@ -184,14 +185,12 @@ dept_manager m on e.emp_no = m.emp_no
 join
 departments d on m.dept_no = d.dept_no;
 -- managers' first/last name, hire date, job title, start date, and dept name
-select e.first_name, e.last_name, e.hire_date, t.title, e.hire_date, m.from_date, d.dept_name
+select e.first_name, e.last_name, e.hire_date, e.hire_date, m.from_date, d.dept_name
 from employees e
 inner join
 dept_manager m on e.emp_no = m.emp_no
 inner join
-departments d on m.dept_no = d.dept_no
-inner join
-titles t on t.emp_no = e.emp_no;
+departments d on m.dept_no = d.dept_no;
 -- join tips and tricks
 /* You don't have to use primary/foreign keys to join. When looking at a picture of all your connected SQL tables, you can "skip" connections and jump straight to similar columns*/
 select d.dept_name, avg(salary)
@@ -230,3 +229,5 @@ union all select
 null as emp_no, null as first_name, null as last_name, m.dept_no, m.from_date -- same thing with nulls here
 from dept_manager m;
 -- union vs union all: union displays only distinct values. Union all is better for speed/performance
+
+select * from employees;

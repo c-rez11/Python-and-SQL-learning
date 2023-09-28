@@ -1,3 +1,4 @@
+use employees_mod;
 -- subquery, or nested query
 -- select first/last name from emp_no that are found in department manager table
 select e.first_name, e.last_name
@@ -14,9 +15,11 @@ from employees e
 where exists (select * from dept_manager dm where dm.emp_no = e.emp_no);
 /* Difference between this and the "in" function? Exists is quicker for large amounts of data because it's just looking for true/false boolean. */
 -- exercise: all employees whose job title is "assistant engineer"
-select * 
-from employees e
-where e.emp_no in (select t.emp_no from titles t where t.emp_no = e.emp_no and title = "Assistant Engineer");
+
+-- again, title's isn't working, so commented out
+-- select * 
+-- from employees e
+-- where e.emp_no in (select t.emp_no from titles t where t.emp_no = e.emp_no and title = "Assistant Engineer");
 
 -- exercise: assign employee number 110022 as manager for employees 10001-10020 and manager 110039 to employees 10021-10040
 select A.*
@@ -116,7 +119,7 @@ select emp_no, max(from_date) as from_date, max(to_date) as to_date
 from dept_emp 
 group by emp_no;
 -- now we can see that view by calling it like this:
-select * from employees.v_dept_emp_latest_date;
+select * from employees_mod.v_dept_emp_latest_date;
 -- exercise: create view to extract avg salary of all managers. Round to nearest cent.
 select round(avg(salary),2) as average_salary
 from salaries s 

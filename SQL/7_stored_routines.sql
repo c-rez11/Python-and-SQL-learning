@@ -7,7 +7,7 @@ Functions include built-in functions (like aggregate functions avg(), count(), e
 -- stored routines
 -- first: we need a delimiter (for us, it'll be $$) because using a plain semicolon will stop the routine after the first query (when in reality, you might want many queries)
 
-use employees;
+use employees_mod;
 drop procedure if exists select_employees;
 delimiter $$
 create procedure select_employees()
@@ -15,7 +15,7 @@ begin
 select * from employees limit 1000;
 end$$
 delimiter ;
-call employees.select_employees();
+call employees_mod.select_employees();
 
 -- exercise: create stored procedure that provides avg salary of all employees
 drop procedure if exists avg_salary;
@@ -40,7 +40,7 @@ join salaries s on e.emp_no = s.emp_no
 where e.emp_no = p_emp_no;
 end$$
 delimiter ;
-call employees.emp_salary(11300);
+call employees_mod.emp_salary(11300);
 
 -- aggregate function with stored procedure
 drop procedure if exists emp_avg_salary;
@@ -54,7 +54,7 @@ where e.emp_no = p_emp_no
 group by(e.emp_no);
 end$$
 delimiter ;
-call employees.emp_avg_salary(11300);
+call employees_mod.emp_avg_salary(11300);
 
 -- output parameter
 drop procedure if exists emp_avg_salary_out;
@@ -69,7 +69,7 @@ where e.emp_no = p_emp_no;
 end$$
 delimiter ;
 set @p_avg_salary = 0;
-call employees.emp_avg_salary_out(11300, @p_avg_salary);
+call employees_mod.emp_avg_salary_out(11300, @p_avg_salary);
 select @p_avg_salary;
 
 -- exercise: paramaters first/last name of individual, return their employee number
@@ -91,7 +91,7 @@ select * from employees limit 10;
 
 -- @ indicates this is a variable. the v is also a good indicator when structuring code
 set @v_avg_salary = 0;
-call employees.emp_avg_salary_out(11300, @v_avg_salary);
+call employees_mod.emp_avg_salary_out(11300, @v_avg_salary);
 select @v_avg_salary;
 
 -- difference between functions and stored procedures?

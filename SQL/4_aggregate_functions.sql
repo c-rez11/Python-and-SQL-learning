@@ -1,3 +1,4 @@
+use employees_mod;
 -- Aggregate functions
 -- count()
 -- exercise: how many departments are there in the employees database?
@@ -17,8 +18,8 @@ select round(avg(salary),-2) from salaries;
 -- ifnull()
 select dept_no, ifnull(dept_name, 'department name not provided') as dept_name from departments_duplicate order by dept_no;
 -- coalesce(): essentially an ifnull() with 2+ parameters
-alter table departments_duplicate -- add new column with null values (to practice)
-add column dept_manager varchar(55) after dept_name;
+-- alter table departments_duplicate -- add new column with null values (to practice)
+-- add column dept_manager varchar(55) after dept_name;
 select * from departments_duplicate;
 insert into departments_duplicate (dept_no,dept_name,dept_manager) -- add null rows to set up coalesce scenario
 values ('d010','','');

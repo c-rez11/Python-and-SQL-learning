@@ -1,5 +1,6 @@
--- and, or, and not operators
+-- again, this database is no longer in use, but the lessons stand
 
+-- and, or, and not operators
 select * from customers
 where birth_date > '1990-01-01' and city = 'Chicago'; -- compare to changing 'and' to 'or'
 

@@ -1,3 +1,4 @@
+-- this database is no longer in use, but the code is still a good example of the lseson
 use sql_store;
 
 select * from customers;

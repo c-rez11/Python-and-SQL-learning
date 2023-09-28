@@ -1,11 +1,12 @@
 
+
 -- seems to be working
 -- test this edit
 -- show how to use not null, unique, etc
 
-use test_db;
+use test1_db;
 
--- drop table persons;
+drop table persons;
 create table persons (
 			ID int not null default 100, -- having a default prevents an error here
             first_name varchar(8) not null,
@@ -16,12 +17,12 @@ create table persons (
             );
 
 insert into persons(first_name, last_name, age)
-values ('Carl', 'Resnick', 25)
+values ('Carl', 'Resnick', 25);
 
 select * from persons;
 
 -- Primary Key
-
+drop table customers;
 create table customers(
 			name varchar(10),
             product varchar(10),
@@ -36,7 +37,7 @@ select * from customers;
 alter table persons
 add primary key (ID);
 
-
+drop table passengers;
 create table passengers(
 			first_name varchar(10),
             last_name varchar(10),
@@ -53,15 +54,15 @@ alter table passengers
 drop index UC_passengers;
 
 -- foreign key
-
-create table customers2 (
-			customer_id int not null,
-            first_name varchar(10),
-            last_name varchar(10),
-            age int,
-            primary key (customer_id)
-            );
-            
+-- drop table customers2;
+-- create table customers2 (
+-- 			customer_id int not null,
+--             first_name varchar(10),
+--             last_name varchar(10),
+--             age int,
+--             primary key (customer_id)
+--             );
+drop table orders;
 create table orders(
 			order_id int not null,
             order_number int not null,
