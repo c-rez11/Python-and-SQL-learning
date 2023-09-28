@@ -8,7 +8,7 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
-df = pd.read_csv('C:/Users/User/Desktop/python/c-rez11/Udemy/python/data_science/data/cancer_classification.csv')
+df = pd.read_csv('C:/Users/User/Desktop/python/c-rez11/learning/python/data_science/data/cancer_classification.csv')
 
 print(df.info()) # check for nulls
 print(df.describe()) # explore statistical distribution of features
@@ -50,7 +50,7 @@ model.compile(loss='binary_crossentropy',optimizer='adam')
 #losses.plot() # note that the model overfits the data, meaning we have overtrained
     # likely because we used too many epochs
 
-from tensorflow.keras.callbacks import EarlyStopping,Tensorboard
+from tensorflow.keras.callbacks import EarlyStopping
 
 # early stopping allows us to stop training the model when it starts to overfit
 early_stop = EarlyStopping(monitor='val_loss', mode='min', verbose=1, patience=25) 
@@ -63,10 +63,12 @@ losses = pd.DataFrame(model.history.history)
 losses.plot() 
 
 # how well does the model do?
-predictions = model.predict_classes(X_test)
+predicted_probabilities = model.predict(X_test)
+predicted_classes = (predicted_probabilities > 0.5).astype(int)  # Assuming binary classification
+
 from sklearn.metrics import classification_report,confusion_matrix
-print(classification_report(y_test,predictions))
-print(confusion_matrix(y_test,predictions))
+print(classification_report(y_test,predicted_classes))
+print(confusion_matrix(y_test,predicted_classes))
 
 
 plt.show()

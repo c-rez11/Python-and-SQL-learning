@@ -96,7 +96,7 @@ import pandas as pd
 import numpy as np
 import seaborn as sns
 
-df = pd.read_csv('fake_reg.csv') # gemstones, their features, and the historical price data
+df = pd.read_csv('C:/Users/User/Desktop/python/c-rez11/learning/python/data_science/data/fake_reg.csv') # gemstones, their features, and the historical price data
 print(df.head())
 
 from sklearn.model_selection import train_test_split
@@ -179,11 +179,11 @@ print(model.predict(new_gem))
 
 # save our model
 from tensorflow.keras.models import load_model
-model.save('my_gem_model.h5')
+model.save('C:/Users/User/Desktop/python/c-rez11/learning/python/data_science/output/my_gem_model.h5')
 # later on, we can load the model
 
 
-later_model = load_model('my_gem_model.h5')
+later_model = load_model('C:/Users/User/Desktop/python/c-rez11/learning/python/data_science/output/my_gem_model.h5')
 print(later_model.predict(new_gem))
 
 #plt.show()

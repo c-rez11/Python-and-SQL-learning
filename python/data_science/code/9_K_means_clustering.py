@@ -46,7 +46,7 @@ ax2.scatter(data[0][:,0],data[0][:,1],c=data[1],cmap='rainbow')
 import pandas as pd
 import numpy as np
 
-df = pd.read_csv('College_Data',index_col=0)
+df = pd.read_csv('C:/Users/User/Desktop/python/c-rez11/learning/python/data_science/data/College_Data',index_col=0)
 print(df.head())
 #df.info()
 #df.describe()

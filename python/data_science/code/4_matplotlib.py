@@ -1,6 +1,6 @@
 #Matplotlib
 
-#overall, this is stuff that can be googled. I didn't spend much time on this section
+# A lot of this can be found in online documentation, so consider just googling it when needed.
 
 import matplotlib.pyplot as plt
 import numpy as np

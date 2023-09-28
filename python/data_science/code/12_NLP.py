@@ -7,7 +7,7 @@
 # W(x,y) = tf(x,y) * log(N/df(x)) to get word count and importance of word in the entire collection of documents
 
 # We'll be using a dataset of 5k text messages to identify spam
-messages = [line.rstrip() for line in open('SMSSpamCollection')]
+messages = [line.rstrip() for line in open('C:/Users/User/Desktop/python/c-rez11/learning/python/data_science/data/SMSSpamCollection')]
 print(len(messages))
 
 #for message_no, message in enumerate(messages[:10]):

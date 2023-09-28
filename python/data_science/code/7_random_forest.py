@@ -5,7 +5,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-df = pd.read_csv('kyphosis.csv')
+df = pd.read_csv('C:/Users/User/Desktop/python/c-rez11/learning/python/data_science/data/kyphosis.csv')
 print(df.head())
 print(df.describe())
 

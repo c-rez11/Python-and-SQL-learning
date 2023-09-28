@@ -7,7 +7,7 @@ import seaborn as sns
 
 
 
-USAhousing = pd.read_csv('USA_Housing.csv')
+USAhousing = pd.read_csv('C:/Users/User/Desktop/python/c-rez11/learning/python/data_science/data/USA_Housing.csv')
 print(USAhousing.head())
 print(USAhousing.info())
 #sns.pairplot(USAhousing)
@@ -48,7 +48,7 @@ print('MSE:', metrics.mean_squared_error(y_test, predictions))
 print('RMSE:', np.sqrt(metrics.mean_squared_error(y_test, predictions)))
 
 #eCommerce project example
-customers = pd.read_csv("Ecommerce Customers")
+customers = pd.read_csv("C:/Users/User/Desktop/python/c-rez11/learning/python/data_science/data/Ecommerce Customers")
 y = customers['Yearly Amount Spent']
 X = customers[['Avg. Session Length', 'Time on App','Time on Website', 'Length of Membership']]
 
@@ -75,7 +75,7 @@ print(coefficients)
 
 #logistic regression - famous Titanic data set
 
-train = pd.read_csv('titanic_train.csv')
+train = pd.read_csv('C:/Users/User/Desktop/python/c-rez11/learning/python/data_science/data/titanic_train.csv')
 print(train.head())
 
 sns.heatmap(train.isnull(),yticklabels=False,cbar=False,cmap='viridis')
@@ -140,7 +140,7 @@ print(confusion_matrix(y_test,predictions))
 #K looks at the nearest neighboring points in the training data (K=number of nearest points)
 #to determine how this new point should be classified
 
-df = pd.read_csv("Classified Data",index_col=0)
+df = pd.read_csv("C:/Users/User/Desktop/python/c-rez11/learning/python/data_science/data/Classified Data",index_col=0)
 
 #used to standardize the data to prepare it for the KNN
 from sklearn.preprocessing import StandardScaler

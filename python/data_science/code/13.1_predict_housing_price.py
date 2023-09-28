@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 # real housing data from Kaggle. housing prices from King County (Seattle)
-df = pd.read_csv('C:/Users/User/Desktop/python/c-rez11/Udemy/python/data_science/data/kc_house_data.csv')
+df = pd.read_csv('C:/Users/User/Desktop/python/c-rez11/learning/python/data_science/data/kc_house_data.csv')
 
 # Step 1: Exploratory Data Analysis
 

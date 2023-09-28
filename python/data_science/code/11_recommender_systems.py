@@ -15,11 +15,11 @@ import pandas as pd
 
 #user ratings of different items (aka movies)
 column_names = ['user_id', 'item_id', 'rating', 'timestamp']
-df = pd.read_csv('u.data', sep='\t', names=column_names)
+df = pd.read_csv('C:/Users/User/Desktop/python/c-rez11/learning/python/data_science/data/u.data', sep='\t', names=column_names)
 print(df.head())
 
 # dictionary of item IDs and movie titles
-movie_titles = pd.read_csv("Movie_Id_Titles")
+movie_titles = pd.read_csv("C:/Users/User/Desktop/python/c-rez11/learning/python/data_science/data/Movie_Id_Titles")
 movie_titles.head()
 
 df = pd.merge(df,movie_titles,on='item_id') # this is like a SQL join

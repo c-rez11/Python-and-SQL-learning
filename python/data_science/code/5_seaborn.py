@@ -51,10 +51,10 @@ sns.lmplot(x='total_bill',y='tip',data=tips)
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-df1 = pd.read_csv('df1',index_col=0)
-plt.style.use('dark_background') #not sure why this isn't working
+# df1 = pd.read_csv('df1',index_col=0)
+# plt.style.use('dark_background')
 
-print(df1['A'].hist())
+# print(df1['A'].hist())
 #plt.show()
 
 #interactive data viz using Plotly and Cufflinks
