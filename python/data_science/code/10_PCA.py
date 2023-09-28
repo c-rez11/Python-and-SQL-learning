@@ -25,6 +25,8 @@ scaler = StandardScaler()
 scaler.fit(df)
 scaled_data = scaler.transform(df)
 
+print(df.head())
+
 from sklearn.decomposition import PCA
 pca = PCA(n_components=2)
 pca.fit(scaled_data)
@@ -43,12 +45,6 @@ df_comp = pd.DataFrame(pca.components_,columns=cancer['feature_names'])
 plt.figure(figsize=(12,6))
 sns.heatmap(df_comp,cmap='plasma',) #shows the correlation between various features and the principle component (cancer) itself
 #this heatmap is our attempt to trace back the 30 features into how they correlate to cancer
-
-
-
-
-
-
 
 
 plt.show()

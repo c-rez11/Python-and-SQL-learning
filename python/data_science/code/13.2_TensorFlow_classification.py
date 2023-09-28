@@ -50,7 +50,8 @@ model.compile(loss='binary_crossentropy',optimizer='adam')
 #losses.plot() # note that the model overfits the data, meaning we have overtrained
     # likely because we used too many epochs
 
-from tensorflow.keras.callbacks import EarlyStopping
+from tensorflow.keras.callbacks import EarlyStopping,Tensorboard
+
 # early stopping allows us to stop training the model when it starts to overfit
 early_stop = EarlyStopping(monitor='val_loss', mode='min', verbose=1, patience=25) 
 # minimize validation loss, wait 25 epochs to stop
